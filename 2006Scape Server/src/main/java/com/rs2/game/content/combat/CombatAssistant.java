@@ -411,6 +411,7 @@ public class CombatAssistant {
 					|| !player.goodDistance(player.getX(), player.getY(), NpcHandler.npcs[i].getX(), NpcHandler.npcs[i].getY(), 7) && (player.usingBow || player.usingMagic)) {
 				return;
 			} else {
+				player.followId2 = 0;
 				player.stopMovement();
 			}
 		}
@@ -573,6 +574,7 @@ public class CombatAssistant {
 					System.err.println("npc distance check early return! probably not good");
 					return;
 				} else {
+					player.followId2 = 0;
 					player.stopMovement();
 				}
 
