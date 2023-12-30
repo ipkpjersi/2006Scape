@@ -319,22 +319,6 @@ public class Misc {
 
 	
 
-	public static void print_debug(String str) {
-		System.out.print(str);
-	}
-
-	public static void println_debug(String str) {
-		System.out.println(str);
-	}
-
-	public static void print(String str) {
-		System.out.print(str);
-	}
-
-	public static void println(String str) {
-		System.out.println(str);
-	}
-
 	public static String Hex(byte data[]) {
 		return Hex(data, 0, data.length);
 	}

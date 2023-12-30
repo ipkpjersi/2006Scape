@@ -268,7 +268,7 @@ public class NpcHandler {
             }
         }
         if (slot == -1) {
-            // Misc.println("No Free Slot");
+            // System.out.println("No Free Slot");
             return; // no free slot found
         }
         Npc newNPC = new Npc(slot, npcType);
@@ -315,7 +315,7 @@ public class NpcHandler {
             }
         }
         if (slot == -1) {
-            // Misc.println("No Free Slot");
+            // System.out.println("No Free Slot");
             return; // no free slot found
         }
         Npc newNPC = new Npc(slot, npcType);
@@ -1500,7 +1500,7 @@ public class NpcHandler {
                         spawn.getStrength());
             }
         } catch (FileNotFoundException fileex) {
-            Misc.println("spawns.json: file not found.");
+            System.out.println("spawns.json: file not found.");
         }
     }
 
@@ -1517,13 +1517,13 @@ public class NpcHandler {
         try {
             characterfile = new BufferedReader(new FileReader(FileName));
         } catch (FileNotFoundException fileex) {
-            Misc.println(FileName + ": file not found.");
+            System.out.println(FileName + ": file not found.");
             return false;
         }
         try {
             line = characterfile.readLine();
         } catch (IOException ioexception) {
-            Misc.println(FileName + ": error loading file.");
+            System.out.println(FileName + ": error loading file.");
             // return false;
         }
         while (EndOfFile == false && line != null) {
@@ -1614,7 +1614,7 @@ public class NpcHandler {
                 newNPCList(npc.getId(), npc.getName(), npc.getCombat(), npc.getHitpoints());
             }
         } catch (FileNotFoundException fileex) {
-            Misc.println("npc.json: file not found.");
+            System.out.println("npc.json: file not found.");
         }
     }
 
@@ -1630,14 +1630,14 @@ public class NpcHandler {
         try {
             characterfile = new BufferedReader(new FileReader(FileName));
         } catch (FileNotFoundException fileex) {
-            Misc.println(FileName + ": file not found.");
+            System.out.println(FileName + ": file not found.");
             return false;
         }
         try {
             line = characterfile.readLine();
             // characterfile.close();
         } catch (IOException ioexception) {
-            Misc.println(FileName + ": error loading file.");
+            System.out.println(FileName + ": error loading file.");
             // return false;
         }
         while (EndOfFile == false && line != null) {
