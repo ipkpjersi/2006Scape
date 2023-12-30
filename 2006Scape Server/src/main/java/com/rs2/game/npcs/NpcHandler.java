@@ -1155,7 +1155,8 @@ public class NpcHandler {
                     int points = c.getSlayer().getDifficulty(c.slayerTask) * 4;
                     c.slayerTask = -1;
                     c.slayerPoints += points;
-                    c.getPacketSender().sendMessage("You completed your slayer task. You obtain " + points + " slayer points. Please talk to your slayer master.");
+                    c.getPacketSender().sendMessage("You completed your slayer task. You obtain " + points + " slayer points.");
+                    c.getPacketSender().sendMessage("Please talk to your slayer master for a new task.")
                 }
             }
         }
