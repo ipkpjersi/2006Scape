@@ -61,6 +61,10 @@ public final class Main {
 					case"-show-zoom":
 						ClientSettings.SHOW_ZOOM_LEVEL_MESSAGES = true;
 						break;
+					case"-crtl-key-zoom":
+					case"-control-key-zoom":
+						ClientSettings.CONTROL_KEY_ZOOMING = true;
+						break;
 				}
 				if (args[i].startsWith("-") && (i + 1) < args.length  && !args[i + 1].startsWith("-")) {
 					switch(args[i]) {
