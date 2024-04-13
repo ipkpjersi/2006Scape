@@ -5586,7 +5586,7 @@ public class Game extends RSApplet {
 		}
 
 	}
-	public void screenshot(String... subfolders) {
+	public void screenshot(boolean sendMessage, String... subfolders) {
 		try {
 			Window window = KeyboardFocusManager.getCurrentKeyboardFocusManager().getFocusedWindow();
 			if (window == null) {
@@ -5683,7 +5683,7 @@ public class Game extends RSApplet {
 				java.util.TimerTask delayedScreenshot = new java.util.TimerTask() {
 					@Override
 					public void run() {
-						screenshot("stats");
+						screenshot(false, "stats");
 					}
 				};
 				timer.schedule(delayedScreenshot, 300);
@@ -11311,7 +11311,7 @@ public class Game extends RSApplet {
 					java.util.TimerTask delayedScreenshot = new java.util.TimerTask() {
 						@Override
 						public void run() {
-							screenshot("bank");
+							screenshot(false, "bank");
 						}
 					};
 					timer.schedule(delayedScreenshot, 600);
@@ -12716,7 +12716,7 @@ public class Game extends RSApplet {
 
 		}
 		  if (keyevent.getKeyCode() == KeyEvent.VK_PRINTSCREEN && keyevent.isControlDown()) {
-			screenshot();
+			screenshot(true);
 		}
 	}
 
