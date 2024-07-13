@@ -556,7 +556,7 @@ public class NpcCombat {
 			if (c.respawnTimer <= 0) {
 				int damage = 0;
 				if (NpcHandler.npcs[i].attackType == AttackType.MELEE.getValue()) {
-					damage = Misc.random(NpcHandler.npcs[i].maxHit);
+					damage = Misc.random(NPCDefinition.forId(NpcHandler.npcs[i].npcType).getMaxHit());
 					if (10 + Misc.random(c.getCombatAssistant().calcDef()) > Misc
 							.random(NpcHandler.npcs[i].attack)) {
 						damage = 0;
@@ -570,7 +570,7 @@ public class NpcCombat {
 						damage = 0;
 					} else if (c.getPrayer().prayerActive[18] && NpcHandler.npcs[i].npcType == 2030) {
 						if (NpcHandler.npcs[i].attackType == AttackType.MELEE.getValue()) {
-							damage = Misc.random(NpcHandler.npcs[i].maxHit);
+							damage = Misc.random(NPCDefinition.forId(NpcHandler.npcs[i].npcType).getMaxHit());
 						}
 						if (10 + Misc.random(MeleeData.calculateMeleeDefence(c)) > Misc.random(NPCDefinition.forId(NpcHandler.npcs[i].npcType).getAttackBonus())) {
 							 if (NpcHandler.npcs[i].npcType == 1158 || NpcHandler.npcs[i].npcType == 1160) 
@@ -585,7 +585,7 @@ public class NpcCombat {
 				}
 
 				if (NpcHandler.npcs[i].attackType == AttackType.RANGE.getValue()) { // range
-					damage = Misc.random(NpcHandler.npcs[i].maxHit);
+					damage = Misc.random(NPCDefinition.forId(NpcHandler.npcs[i].npcType).getMaxHit());
 					if (10 + Misc.random(c.getCombatAssistant().calculateRangeDefence()) > Misc.random(NPCDefinition.forId(NpcHandler.npcs[i].npcType).getAttackBonus())) {
 						if (NpcHandler.npcs[i].npcType == 1158 || NpcHandler.npcs[i].npcType == 1160) 
 							damage = (damage / 2);
@@ -606,7 +606,7 @@ public class NpcCombat {
 				}
 
 				if (NpcHandler.npcs[i].attackType == AttackType.MAGIC.getValue()) { // magic
-					damage = Misc.random(NpcHandler.npcs[i].maxHit);
+					damage = Misc.random(NPCDefinition.forId(NpcHandler.npcs[i].npcType).getMaxHit());
 					boolean magicFailed = false;
 					if (10 + Misc.random(c.getCombatAssistant().mageDef()) > Misc.random(NPCDefinition.forId(NpcHandler.npcs[i].npcType).getAttackBonus())) {
 						damage = 0;
