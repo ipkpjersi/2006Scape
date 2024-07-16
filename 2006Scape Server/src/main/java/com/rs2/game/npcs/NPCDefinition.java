@@ -24,8 +24,18 @@ public class NPCDefinition {
 		try (FileReader reader = new FileReader("data/cfg/npcDefinitions.json")) {
 			defs = gson.fromJson(reader, type);
 		}
-		for (NPCDefinition def : defs) {
-			definitions.put(def.getId(), def);
+		boolean testNpcMaxHits = true;
+		int missingMaxHit = 0;
+		if (testNpcMaxHits) {
+			System.err.println("Loading NPC definitions (and testing them)");
+			for (NPCDefinition def : defs) {
+				definitions.put(def.getId(), def);
+				if (def.attackable && def.maxHit == 1 && !def.name.equals("null")) {
+					missingMaxHit++;
+					System.err.println("NPC " + def.name + " (ID: " + def.id + ") has a max hit of 1, needs checking!");
+				}
+			}
+			System.err.println("There are " + missingMaxHit + " NPCs with a max hit of 1, needs checking! To toggle this off, set NpcDefinition::init() testNpcMaxHits to false.");
 		}
 	}
 
