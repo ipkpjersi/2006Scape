@@ -24,7 +24,7 @@ public class NPCDefinition {
 		try (FileReader reader = new FileReader("data/cfg/npcDefinitions.json")) {
 			defs = gson.fromJson(reader, type);
 		}
-		boolean testNpcMaxHits = true;
+		boolean testNpcMaxHits = false;
 		int missingMaxHit = 0;
 		if (testNpcMaxHits) {
 			System.err.println("Loading NPC definitions (and testing them)");
