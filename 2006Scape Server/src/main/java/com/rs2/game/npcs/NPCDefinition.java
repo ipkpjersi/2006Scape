@@ -26,17 +26,20 @@ public class NPCDefinition {
 		}
 		boolean testNpcMaxHits = false;
 		int missingMaxHit = 0;
-		if (testNpcMaxHits) {
-			System.err.println("Loading NPC definitions (and testing them)");
-			for (NPCDefinition def : defs) {
-				definitions.put(def.getId(), def);
+		System.out.println("Loading NPC definitions" + (testNpcMaxHits ? " and testing them" : ""));
+		for (NPCDefinition def : defs) {
+			definitions.put(def.getId(), def);
+			if (testNpcMaxHits) {
 				if (def.attackable && def.maxHit == 1 && !def.name.equals("null")) {
 					missingMaxHit++;
 					System.err.println("NPC " + def.name + " (ID: " + def.id + ") has a max hit of 1, needs checking!");
 				}
 			}
-			System.err.println("There are " + missingMaxHit + " NPCs with a max hit of 1, needs checking! To toggle this off, set NpcDefinition::init() testNpcMaxHits to false.");
 		}
+		if (testNpcMaxHits) {
+		System.err.println("There are " + missingMaxHit + " NPCs with a max hit of 1, needs checking! To toggle this off, set NpcDefinition::init() testNpcMaxHits to false.");
+		}
+		
 	}
 
 	public static NPCDefinition forId(int id) {
