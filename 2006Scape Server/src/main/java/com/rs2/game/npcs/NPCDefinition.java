@@ -39,7 +39,7 @@ public class NPCDefinition {
 			}
 		}
 		if (testNpcMaxHits) {
-		System.err.println("There are " + missingMaxHit + " NPCs with a max hit of 1, needs checking! To toggle this off, set NpcDefinition::init() testNpcMaxHits to false.");
+			System.err.println("There are " + missingMaxHit + " NPCs with a max hit of 1, needs checking! To toggle this off, set NpcDefinition::init() testNpcMaxHits to false.");
 		}
 		
 	}
