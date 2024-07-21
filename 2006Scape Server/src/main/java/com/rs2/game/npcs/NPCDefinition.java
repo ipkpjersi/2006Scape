@@ -26,7 +26,7 @@ public class NPCDefinition {
 		}
 		boolean testNpcMaxHits = false;
 		int missingMaxHit = 0;
-		System.err.println("Loading NPC definitions" + (testNpcMaxHits ? " and testing them" : ""));
+		System.out.println("Loading NPC definitions" + (testNpcMaxHits ? " and testing them" : ""));
 		for (NPCDefinition def : defs) {
 			definitions.put(def.getId(), def);
 			if (testNpcMaxHits) {
