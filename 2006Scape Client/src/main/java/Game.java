@@ -2978,7 +2978,7 @@ public class Game extends RSApplet {
 		if (anInt1011 > 0) {
 			anInt1011--;
 		}
-		//Technically, this loop should be < 5 for authenticity, but until we reduce server inefficiencies
+		//TODO: Technically, this loop should be < 5 for authenticity, but until we reduce server inefficiencies
 		//(for example killing a bunch of cows results in client lag, 
 		//likely from all the items on the ground for example), < 100 is fine. 
 		//OSRS uses < 100 and there are no drawbacks from having this < 100.
@@ -5040,6 +5040,9 @@ public class Game extends RSApplet {
 				if ((j == 13 || j == 10) && inputString.length() > 0) {
 					if (inputString.equals("::gfxtgl") || inputString.equals("::tglgfx") || inputString.equals("::togglerender") || inputString.equals("::togglegfx")) {
 						graphicsEnabled = !graphicsEnabled;
+					}
+					if (inputString.equals("::crtlkeyzoom") || inputString.equals("::controlkeyzoom")) {
+						ClientSettings.CONTROL_KEY_ZOOMING = !ClientSettings.CONTROL_KEY_ZOOMING;
 					}
 					if (myPrivilege >= 2) {
 						if (inputString.equals("::noclip"))
