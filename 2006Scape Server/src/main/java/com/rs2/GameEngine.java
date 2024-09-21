@@ -120,6 +120,7 @@ public class GameEngine {
 	private final static ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
 	private final static Lock lock = new ReentrantLock();
 	public static ControlPanel panel;
+	private static long serverStartTime;
 
 	static {
 		shutdownServer = false;
@@ -131,6 +132,7 @@ public class GameEngine {
 		System.setErr(errorStream);
 		CustomPrintStream infoStream = new CustomPrintStream(System.out, "INFO", true);
 		System.setOut(infoStream);
+		serverStartTime = System.currentTimeMillis();
 		if (NetworkConstants.RSA_EXPONENT != Constants.RSA_EXPONENT) {
 			NetworkConstants.RSA_EXPONENT = Constants.RSA_EXPONENT;
 			NetworkConstants.RSA_MODULUS = Constants.RSA_MODULUS;
@@ -405,4 +407,8 @@ public class GameEngine {
 
 	public static boolean playerExecuted = false;
 	private static BufferedReader minuteFile;
+
+	public static long getServerStartTime() {
+		return serverStartTime;
+	}
 }
