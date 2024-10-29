@@ -6,6 +6,7 @@ import com.rs2.event.CycleEventHandler;
 import com.rs2.event.impl.NpcFirstClickEvent;
 import com.rs2.event.impl.NpcSecondClickEvent;
 import com.rs2.event.impl.NpcThirdClickEvent;
+import com.rs2.game.content.StaticNpcList;
 import com.rs2.game.content.combat.CombatConstants;
 import com.rs2.game.content.combat.magic.MagicData;
 import com.rs2.game.content.combat.range.RangeData;
@@ -156,7 +157,7 @@ public class ClickNPC implements PacketType {
 				System.out.println("distance good! stop movement 1");
 				player.stopMovement();
 			}
-			if (player.followId > 0) {
+			if (player.followPlayerId > 0) {
 				player.getPlayerAssistant().resetFollow();
 			}
 			if (player.attackTimer <= 0) {
@@ -202,7 +203,7 @@ public class ClickNPC implements PacketType {
 			}
 
 			if (NpcHandler.npcs[player.npcIndex].MaxHP == 0
-					|| NpcHandler.npcs[player.npcIndex].npcType == 944) {
+					|| NpcHandler.npcs[player.npcIndex].npcType == StaticNpcList.COMBAT_INSTRUCTOR) {
 				player.getPacketSender().sendMessage(
 						"You can't attack this npc.");
 				break;

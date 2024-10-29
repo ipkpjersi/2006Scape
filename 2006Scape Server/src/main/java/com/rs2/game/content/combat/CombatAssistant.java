@@ -31,6 +31,8 @@ import com.rs2.util.Misc;
 import com.rs2.world.Boundary;
 import com.rs2.world.clip.PathFinder;
 
+import static com.rs2.game.content.StaticNpcList.*;
+
 /**
  * @author whoever contributed
  * @author Andrew (Mr Extremez)
@@ -90,7 +92,7 @@ public class CombatAssistant {
 					NpcHandler.npcs[i].gfx0(758);
 				}
 				if (Misc.random(NpcHandler.npcs[i].defence) > Misc.random(10 + calculateRangeAttack()) && !ignoreDef
-					|| (NpcHandler.npcs[i].npcType == 2881 || NpcHandler.npcs[i].npcType == 2883 && !ignoreDef)) {
+					|| (NpcHandler.npcs[i].npcType == DAGANNOTH_SUPREME || NpcHandler.npcs[i].npcType == DAGANNOTH_REX && !ignoreDef)) {
 					damage = 0;
 				}
 				if (Misc.random(4) == 1 && player.lastArrowUsed == 9242 && damage > 0) {
@@ -183,7 +185,7 @@ public class CombatAssistant {
 				if (Misc.random(NpcHandler.npcs[i].defence) > 10 + Misc.random(mageAtk()) + bonusAttack) {
 					damage = 0;
 					magicFailed = true;
-				} else if (NpcHandler.npcs[i].npcType == 2881 || NpcHandler.npcs[i].npcType == 2882) {
+				} else if (NpcHandler.npcs[i].npcType == DAGANNOTH_SUPREME || NpcHandler.npcs[i].npcType == DAGANNOTH_PRIME) {
 					damage = 0;
 					magicFailed = true;
 				}
@@ -279,7 +281,7 @@ public class CombatAssistant {
 		if (!fullVeracsEffect) {
 			if (Misc.random(NpcHandler.npcs[i].defence) > 10 + Misc.random(calcAtt())) {
 				damage = 0;
-			} else if (NpcHandler.npcs[i].npcType == 2882 || NpcHandler.npcs[i].npcType == 2883) {
+			} else if (NpcHandler.npcs[i].npcType == DAGANNOTH_PRIME || NpcHandler.npcs[i].npcType == DAGANNOTH_REX) {
 				damage = 0;
 			}
 		}
@@ -297,7 +299,7 @@ public class CombatAssistant {
 				guthansEffect = true;
 			}
 		}
-		if (player.fightMode == 3 && NpcHandler.npcs[i].npcType != 2459 && NpcHandler.npcs[i].npcType != 2460 && NpcHandler.npcs[i].npcType != 2461 && NpcHandler.npcs[i].npcType != 2462) {
+		if (player.fightMode == 3 && NpcHandler.npcs[i].npcType != PHEASANT && NpcHandler.npcs[i].npcType != PHEASANT_2460 && NpcHandler.npcs[i].npcType != PHEASANT_2461 && NpcHandler.npcs[i].npcType != PHEASANT_2462) {
 			player.getPlayerAssistant().addSkillXP(damage * CombatConstants.MELEE_EXP_RATE / 3, 0);
 			player.getPlayerAssistant().addSkillXP(damage * CombatConstants.MELEE_EXP_RATE / 3, 1);
 			player.getPlayerAssistant().addSkillXP(damage * CombatConstants.MELEE_EXP_RATE / 3, 2);
@@ -307,7 +309,7 @@ public class CombatAssistant {
 			player.getPlayerAssistant().refreshSkill(Constants.STRENGTH);
 			player.getPlayerAssistant().refreshSkill(Constants.HITPOINTS);
 		} else {
-			if (NpcHandler.npcs[i].npcType != 2459 && NpcHandler.npcs[i].npcType != 2460 && NpcHandler.npcs[i].npcType != 2461 && NpcHandler.npcs[i].npcType != 2462) {
+			if (NpcHandler.npcs[i].npcType != PHEASANT && NpcHandler.npcs[i].npcType != PHEASANT_2460 && NpcHandler.npcs[i].npcType != PHEASANT_2461 && NpcHandler.npcs[i].npcType != PHEASANT_2462) {
 				player.getPlayerAssistant().addSkillXP(damage * CombatConstants.MELEE_EXP_RATE, player.fightMode);
 				player.getPlayerAssistant().addSkillXP(damage * CombatConstants.MELEE_EXP_RATE / 3, 3);
 				player.getPlayerAssistant().refreshSkill(player.fightMode);
@@ -386,7 +388,7 @@ public class CombatAssistant {
 		if (i > 0 && NpcHandler.npcs[i] != null) {
 			if (NpcHandler.npcs[i].isDead) {
 				player.npcIndex = 0;
-				player.followId2 = 0;
+				player.followNpcId = 0;
 				player.faceNpc(0);
 				return;
 			}
@@ -412,7 +414,7 @@ public class CombatAssistant {
 				return;
 			} else {
 				if (player.usingMagic || player.usingBow || player.usingRangeWeapon) {
-					player.followId2 = 0;
+					player.followNpcId = 0;
 				}
 				player.stopMovement();
 			}
@@ -424,7 +426,7 @@ public class CombatAssistant {
 		if (i > 0 && PlayerHandler.players[i] != null) {
 			if (PlayerHandler.players[i].isDead) {
 				player.playerIndex = 0;
-				player.followId = 0;
+				player.followPlayerId = 0;
 				player.faceNpc(0);
 				return;
 			}
@@ -448,7 +450,7 @@ public class CombatAssistant {
 				return;
 			} else {
 				if (player.usingMagic || player.usingBow || player.usingRangeWeapon) {
-					player.followId = 0;
+					player.followPlayerId = 0;
 				}
 				player.stopMovement();
 			}
@@ -480,7 +482,7 @@ public class CombatAssistant {
 			if (!SlayerRequirements.itemNeededSlayer(player, i) || !player.getSlayer().canAttackNpc(i)) {
 				return;
 			}
-			if (NpcHandler.npcs[i].npcType == 757 && player.vampSlayer > 2) {
+			if (NpcHandler.npcs[i].npcType == COUNT_DRAYNOR && player.vampSlayer > 2) {
 				if (!player.getItemAssistant().playerHasItem(1549, 1) || !player.getItemAssistant().playerHasItem(2347, 1)) {
 					player.getPacketSender().sendMessage("You need a stake and hammer to attack count draynor.");
 					resetPlayerAttack();
@@ -492,12 +494,12 @@ public class CombatAssistant {
 				resetPlayerAttack();
 				return;
 			}
-			if (NpcHandler.npcs[i].npcType == 1676) {
+			if (NpcHandler.npcs[i].npcType == EXPERIMENT) {
 				player.getPacketSender().sendMessage("You don't have the heart to kill the poor creature again.");
 				resetPlayerAttack();
 				return;
 			}
-			if (NpcHandler.npcs[i].npcType == 411) {
+			if (NpcHandler.npcs[i].npcType == SWARM) {
 				player.getPacketSender().sendMessage("You can't attack a swarm!");
 				resetPlayerAttack();
 				return;
@@ -518,8 +520,8 @@ public class CombatAssistant {
 				return;
 			}
 
-			player.followId2 = i;
-			player.followId = 0;
+			player.followNpcId = i;
+			player.followPlayerId = 0;
 			if (!player.usingRangeWeapon && !RangeData.usingHally(player) && !player.usingBow && !player.usingMagic && player.goodDistance(player.getX(), player.getY(), NpcHandler.npcs[i].getX(), NpcHandler.npcs[i].getY(), NPCDefinition.forId(NpcHandler.npcs[i].npcType).getSize())) {
 				System.out.println("distance good! stop movement 2");
 				player.stopMovement();
@@ -580,7 +582,7 @@ public class CombatAssistant {
 					return;
 				} else {
 					if (player.usingMagic || player.usingBow || player.usingRangeWeapon) {
-						player.followId2 = 0;
+						player.followNpcId = 0;
 					}
 					player.stopMovement();
 				}
@@ -811,7 +813,7 @@ public class CombatAssistant {
 						resetPlayerAttack();
 						return;
 					}
-					player.followId = i;
+					player.followPlayerId = i;
 					player.attackTimer = 0;
 					return;
 				}
@@ -884,7 +886,7 @@ public class CombatAssistant {
 					return;
 				} else {
 					if (player.usingMagic || player.usingBow || player.usingRangeWeapon) {
-						player.followId = 0;
+						player.followPlayerId = 0;
 					}
 				}
 
@@ -958,7 +960,7 @@ public class CombatAssistant {
 					if (checkSpecAmount(equippedWeapon)) {
 						player.lastArrowUsed = player.playerEquipment[player.playerArrows];
 						player.getSpecials().activateSpecial(player.playerEquipment[player.playerWeapon], o, i);
-						player.followId = player.playerIndex;
+						player.followPlayerId = player.playerIndex;
 						return;
 					} else {
 						player.getPacketSender().sendMessage("You don't have the required special energy to use this attack.");
@@ -993,7 +995,7 @@ public class CombatAssistant {
 				player.lastArrowUsed = 0;
 				player.rangeItemUsed = 0;
 				if (!player.usingBow && !player.usingMagic && !player.usingRangeWeapon) { // melee hit delay
-					player.followId = PlayerHandler.players[player.playerIndex].playerId;
+					player.followPlayerId = PlayerHandler.players[player.playerIndex].playerId;
 					player.hitDelay = getHitDelay();
 					player.delayedDamage = Misc.random(meleeMaxHit());
 					player.projectileStage = 0;
@@ -1014,7 +1016,7 @@ public class CombatAssistant {
 						player.usingBow = true;
 					}
 					player.usingBow = true;
-					player.followId = PlayerHandler.players[player.playerIndex].playerId;
+					player.followPlayerId = PlayerHandler.players[player.playerIndex].playerId;
 					player.lastWeaponUsed = player.playerEquipment[player.playerWeapon];
 					player.lastArrowUsed = player.playerEquipment[player.playerArrows];
 					player.gfx100(RangeData.getRangeStartGFX(player));
@@ -1027,7 +1029,7 @@ public class CombatAssistant {
 					player.rangeItemUsed = player.playerEquipment[player.playerWeapon];
 					player.getItemAssistant().deleteEquipment();
 					player.usingRangeWeapon = true;
-					player.followId = PlayerHandler.players[player.playerIndex].playerId;
+					player.followPlayerId = PlayerHandler.players[player.playerIndex].playerId;
 					player.gfx100(RangeData.getRangeStartGFX(player));
 					if (player.fightMode == 2) {
 						player.attackTimer--;
@@ -1702,7 +1704,7 @@ public class CombatAssistant {
 	}
 
 	public int getRequiredDistance() {
-		if (player.followId > 0 && player.freezeTimer <= 0) {
+		if (player.followPlayerId > 0 && player.freezeTimer <= 0) {
 			return player.isMoving ? 3 : 2;
 		}
 		return 1;
@@ -1751,14 +1753,14 @@ public class CombatAssistant {
 
 	public int getBonusAttack(int i) {
 		switch (NpcHandler.npcs[i].npcType) {
-		case 2883:
-			return Misc.random(50) + 30;
-		case 2026:
-		case 2027:
-		case 2029:
-		case 2030:
-			return Misc.random(50) + 30;
-		}
+			case DAGANNOTH_REX:
+				return Misc.random(50) + 30;
+			case DHAROK_THE_WRETCHED:
+			case GUTHAN_THE_INFESTED:
+			case TORAG_THE_CORRUPTED:
+			case VERAC_THE_DEFILED:
+				return Misc.random(50) + 30;
+			}
 		return 0;
 	}
 
