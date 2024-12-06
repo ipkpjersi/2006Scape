@@ -1655,7 +1655,6 @@ public class PlayerAssistant {
 		if (npc == null || npc.isDead) {
 			return;
 		}
-
 		int x = NpcHandler.npcs[player.followNpcId].getX();
 		int y = NpcHandler.npcs[player.followNpcId].getY();
 		if (!player.goodDistance(x, y, player.getX(), player.getY(), 25)) {
