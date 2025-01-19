@@ -93,7 +93,10 @@ public class Commands implements PacketType {
                     // Search by item name
                     for (NpcDrop npcDrop : NPCDropsHandler.getNpcDrops()) {
                         for (ItemDrop itemDrop : npcDrop.getItems()) {
-                            // Assuming you have a method to get an item name from the item ID
+                            if (ItemDefinition.forId(itemDrop.item_id) == null || ItemDefinition.forId(itemDrop.item_id).getName() == null) {
+                                System.out.println("Skipping null item ID: " + itemDrop.item_id);
+                                continue;
+                            }
                             String dropItemName = ItemDefinition.forId(itemDrop.item_id).getName().toLowerCase();
                             if (dropItemName.contains(itemName)) {  // Check if the name matches (case insensitive)
                                 // Get NPC info
