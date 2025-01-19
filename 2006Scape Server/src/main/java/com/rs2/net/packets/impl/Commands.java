@@ -93,7 +93,7 @@ public class Commands implements PacketType {
                     // Search by item name
                     for (NpcDrop npcDrop : NPCDropsHandler.getNpcDrops()) {
                         for (ItemDrop itemDrop : npcDrop.getItems()) {
-                            if (ItemDefinition.forId(itemDrop.item_id) == null || ItemDefinition.forId(itemDrop.item_id).getName() == null) { // Check if the item is null, since there can be placeholder items
+                            if (ItemDefinition.forId(itemDrop.item_id) == null || ItemDefinition.forId(itemDrop.item_id).getName() == null) { // Check if the item is null, since there can be placeholder items in the cache
                                 System.out.println("Skipping null item ID: " + itemDrop.item_id);
                                 continue;
                             }
