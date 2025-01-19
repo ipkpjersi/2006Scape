@@ -53,7 +53,10 @@ public class Commands implements PacketType {
 
     public static void playerCommands(Player player, String playerCommand, String[] arguments) {
         switch (playerCommand.toLowerCase()) {
-            case "drops":
+            case "npcdrops":
+            case "searchdrops":
+            case "searchnpcdrops":
+            case "drops": // Possible usage: ::drops dragon
                 boolean found = false;
             
                 // Check if arguments are provided (item ID or name)
