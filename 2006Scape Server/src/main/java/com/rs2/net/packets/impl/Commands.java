@@ -53,6 +53,9 @@ public class Commands implements PacketType {
 
     public static void playerCommands(Player player, String playerCommand, String[] arguments) {
         switch (playerCommand.toLowerCase()) {
+            case "npcdrops":
+            case "searchdrops":
+            case "searchnpcdrops":
             case "drops":
                 boolean found = false;
             
