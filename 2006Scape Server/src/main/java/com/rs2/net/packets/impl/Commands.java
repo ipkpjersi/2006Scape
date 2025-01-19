@@ -56,7 +56,7 @@ public class Commands implements PacketType {
             case "npcdrops":
             case "searchdrops":
             case "searchnpcdrops":
-            case "drops":
+            case "drops": // Possible usage: ::drops dragon
                 boolean found = false;
             
                 // Check if arguments are provided (item ID or name)
