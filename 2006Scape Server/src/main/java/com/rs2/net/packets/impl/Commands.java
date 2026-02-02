@@ -441,6 +441,41 @@ public class Commands implements PacketType {
             case "close_interface":
                 player.getPacketSender().closeAllWindows();
                 break;
+            case "forcekill":
+                try {
+                    if (arguments.length == 0) {
+                        // Show confirmation dialogue
+                        player.setTempString(player.playerName);
+                        player.getDialogueHandler().sendDialogues(20000, 2244);
+                    } else {
+                        // Kill another player (moderator+ only) - Show confirmation dialogue
+                        if (player.playerRights < 1) {
+                            player.getPacketSender().sendMessage("You must be a moderator or higher to kill other players.");
+                            return;
+                        }
+                        String playerToKill = String.join(" ", arguments);
+                        // Check if player exists before showing dialogue
+                        boolean found = false;
+                        for (Player player2 : PlayerHandler.players) {
+                            if (player2 != null) {
+                                if (player2.playerName.equalsIgnoreCase(playerToKill)) {
+                                    found = true;
+                                    break;
+                                }
+                            }
+                        }
+                        if (!found) {
+                            player.getPacketSender().sendMessage("Player must be online.");
+                            return;
+                        }
+                        // Show confirmation dialogue
+                        player.setTempString(playerToKill);
+                        player.getDialogueHandler().sendDialogues(20000, 2244);
+                    }
+                } catch (Exception e) {
+                    player.getPacketSender().sendMessage("An error occurred.");
+                }
+                break;
             case "commands":
             case "cmd":
                 String[] commands = new String[]{

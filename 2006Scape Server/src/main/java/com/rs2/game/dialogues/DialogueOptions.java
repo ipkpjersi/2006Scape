@@ -7,6 +7,7 @@ import com.rs2.game.content.skills.crafting.JewelryMaking;
 import com.rs2.game.items.impl.Flowers;
 import com.rs2.game.items.impl.Teles;
 import com.rs2.game.players.Player;
+import com.rs2.game.players.PlayerHandler;
 
 /**
  * Dialogue Options
@@ -340,7 +341,27 @@ public class DialogueOptions {
 			}
 			break;
 		case 9157:// barrows tele to tunnels
-			if (player.dialogueAction == 1) {
+			if (player.dialogueAction == 20000) {
+				// Yes, proceed with kill
+				String targetName = player.getTempString();
+				boolean found = false;
+				for (Player player2 : PlayerHandler.players) {
+					if (player2 != null) {
+						if (player2.playerName.equalsIgnoreCase(targetName)) {
+							player2.dealDamage(player2.playerLevel[Constants.HITPOINTS]);
+							player.getPacketSender().sendMessage("You have killed " + player2.playerName + ".");
+							player2.getPacketSender().sendMessage("You have been killed by " + player.playerName + ".");
+							found = true;
+							break;
+						}
+					}
+				}
+				if (!found) {
+					player.getPacketSender().sendMessage("Player must be online.");
+				}
+				player.getPacketSender().closeAllWindows();
+				return;
+			} else if (player.dialogueAction == 1) {
 				int r = 4;
 				// int r = Misc.random(3);
 
@@ -671,7 +692,12 @@ public class DialogueOptions {
 			break;
 
 		case 9158:
-			if (player.dialogueAction == 8) {
+			if (player.dialogueAction == 20000) {
+				// No, cancel
+				player.getPacketSender().sendMessage("Kill cancelled.");
+				player.getPacketSender().closeAllWindows();
+				return;
+			} else if (player.dialogueAction == 8) {
 				player.getPlayerAssistant().fixAllBarrows();
 			} else if (player.dialogueAction == 29) {
 				player.getDialogueHandler().sendDialogues(481, player.npcType);
