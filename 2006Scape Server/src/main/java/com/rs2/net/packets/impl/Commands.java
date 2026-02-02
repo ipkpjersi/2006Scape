@@ -455,16 +455,16 @@ public class Commands implements PacketType {
                         }
                         String playerToKill = String.join(" ", arguments);
                         // Check if player exists before showing dialogue
-                        boolean found = false;
+                        boolean foundPlayer = false;
                         for (Player player2 : PlayerHandler.players) {
                             if (player2 != null) {
                                 if (player2.playerName.equalsIgnoreCase(playerToKill)) {
-                                    found = true;
+                                    foundPlayer = true;
                                     break;
                                 }
                             }
                         }
-                        if (!found) {
+                        if (!foundPlayer) {
                             player.getPacketSender().sendMessage("Player must be online.");
                             return;
                         }
