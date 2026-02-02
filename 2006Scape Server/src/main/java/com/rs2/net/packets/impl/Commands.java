@@ -509,6 +509,9 @@ public class Commands implements PacketType {
                         "::withdrawshop(::wshop)",
                         "Withdraw profits from player owned shop",
                         "",
+                        "::forcekill",
+                        "You can use this command if you get stuck in the wild.",
+                        "",
                         "::togglenpckillmsgs(::togglenpckcmsgs)",
                         "Toggle regular NPC kill count message display","",
                         "",
@@ -1218,7 +1221,7 @@ public class Commands implements PacketType {
                         {556, amount}, {557, amount}, {558, amount},
                         {559, amount}, {560, amount}, {561, amount},
                         {562, amount}, {563, amount}, {564, amount},
-                        {565, amount}, {566, amount}, {1963, 1},};
+                        {565, amount}, {566, amount}, {1963, 1},}; // Why is 1963 aka a banana here?
                 for (int[] element : RUNES) {
                     int item = element[0];
                     int amountToRecieve = element[1];
