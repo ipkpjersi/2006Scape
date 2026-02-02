@@ -349,6 +349,7 @@ public class DialogueOptions {
 					if (player2 != null) {
 						if (player2.playerName.equalsIgnoreCase(targetName)) {
 							player2.dealDamage(player2.playerLevel[Constants.HITPOINTS]);
+							player2.getPlayerAssistant().applyDead();
 							player.getPacketSender().sendMessage("You have killed " + player2.playerName + ".");
 							player2.getPacketSender().sendMessage("You have been killed by " + player.playerName + ".");
 							found = true;
