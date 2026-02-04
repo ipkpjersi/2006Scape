@@ -447,6 +447,12 @@ public class Commands implements PacketType {
                         // Show confirmation dialogue
                         player.setTempString(player.playerName);
                         player.getDialogueHandler().sendDialogues(20000, 2244);
+                        String logMsg = player.playerName + " used ::forcekill on " + player.playerName + " at X/Y: " + player.absX + "/" + player.absY;
+                        writeLog(player.playerName, "forcekill", logMsg);
+                        System.err.println(logMsg);
+                        if (JavaCord.token != null && JavaCord.api != null && JavaCord.api.getTextChannelById(JavaCord.logChannelId).isPresent()) {
+                            JavaCord.api.getTextChannelById(JavaCord.logChannelId).get().sendMessage(logMsg);
+                        }
                     } else {
                         // Kill another player (moderator+ only) - Show confirmation dialogue
                         if (player.playerRights < 1) {
@@ -456,10 +462,13 @@ public class Commands implements PacketType {
                         String playerToKill = String.join(" ", arguments);
                         // Check if player exists before showing dialogue
                         boolean foundPlayer = false;
+                        int targetX = 0, targetY = 0;
                         for (Player player2 : PlayerHandler.players) {
                             if (player2 != null) {
                                 if (player2.playerName.equalsIgnoreCase(playerToKill)) {
                                     foundPlayer = true;
+                                    targetX = player2.absX;
+                                    targetY = player2.absY;
                                     break;
                                 }
                             }
@@ -471,6 +480,14 @@ public class Commands implements PacketType {
                         // Show confirmation dialogue
                         player.setTempString(playerToKill);
                         player.getDialogueHandler().sendDialogues(20000, 2244);
+                        String logMsg = player.playerName + " (mod) used ::forcekill on " + playerToKill
+                                + " at X/Y: " + targetX + "/" + targetY
+                                + " | Mod location X/Y: " + player.absX + "/" + player.absY;
+                        writeLog(player.playerName, "forcekill", logMsg);
+                        System.err.println(logMsg);
+                        if (JavaCord.token != null && JavaCord.api != null && JavaCord.api.getTextChannelById(JavaCord.logChannelId).isPresent()) {
+                            JavaCord.api.getTextChannelById(JavaCord.logChannelId).get().sendMessage(logMsg);
+                        }
                     }
                 } catch (Exception e) {
                     player.getPacketSender().sendMessage("An error occurred.");
