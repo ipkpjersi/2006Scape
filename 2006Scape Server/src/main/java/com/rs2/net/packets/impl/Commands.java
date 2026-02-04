@@ -483,7 +483,7 @@ public class Commands implements PacketType {
                         String logMsg = player.playerName + " (mod) used ::forcekill on " + playerToKill
                                 + " at X/Y: " + targetX + "/" + targetY
                                 + " | Mod location X/Y: " + player.absX + "/" + player.absY;
-                        writeLog(player.playerName, "forcekill", logMsg);
+                        writeLog(player.playerName, "commands", logMsg);
                         System.err.println(logMsg);
                         if (JavaCord.token != null && JavaCord.api != null && JavaCord.api.getTextChannelById(JavaCord.logChannelId).isPresent()) {
                             JavaCord.api.getTextChannelById(JavaCord.logChannelId).get().sendMessage(logMsg);

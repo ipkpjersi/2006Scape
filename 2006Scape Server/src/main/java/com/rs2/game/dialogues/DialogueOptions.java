@@ -343,7 +343,7 @@ public class DialogueOptions {
 				break;
 			}
 			break;
-		case 9157:// barrows tele to tunnels
+		case 9157:
 			if (player.dialogueAction == 20000) {
 				// Yes, proceed with kill
 				String targetName = player.getTempString();
@@ -363,7 +363,7 @@ public class DialogueOptions {
 							} else {
 								logMsg = player.playerName + " confirmed ::forcekill on " + player.playerName + " at X/Y: " + player2.absX + "/" + player2.absY;
 							}
-							writeLog(player.playerName, "forcekill", logMsg);
+							writeLog(player.playerName, "commands", logMsg);
 							System.err.println(logMsg);
 							if (JavaCord.token != null && JavaCord.api != null && JavaCord.api.getTextChannelById(JavaCord.logChannelId).isPresent()) {
 								JavaCord.api.getTextChannelById(JavaCord.logChannelId).get().sendMessage(logMsg);
@@ -378,7 +378,7 @@ public class DialogueOptions {
 				}
 				player.getPacketSender().closeAllWindows();
 				return;
-			} else if (player.dialogueAction == 1) {
+			} else if (player.dialogueAction == 1) { // barrows tele to tunnels
 				int r = 4;
 				// int r = Misc.random(3);
 
@@ -719,7 +719,7 @@ public class DialogueOptions {
 				} else {
 					cancelMsg = player.playerName + " cancelled ::forcekill on themselves at X/Y: " + player.absX + "/" + player.absY;
 				}
-				writeLog(player.playerName, "forcekill", cancelMsg);
+				writeLog(player.playerName, "commands", cancelMsg);
 				System.err.println(cancelMsg);
 				if (JavaCord.token != null && JavaCord.api != null && JavaCord.api.getTextChannelById(JavaCord.logChannelId).isPresent()) {
 					JavaCord.api.getTextChannelById(JavaCord.logChannelId).get().sendMessage(cancelMsg);
